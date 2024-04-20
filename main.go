@@ -28,3 +28,14 @@ func main() {
 func getPokemon(c *gin.Context) {
 	c.IndentedJSON(http.StatusOK, PokemonStruct)
 }
+
+func CreatePokemon(c *gin.Context) {
+	var newPokemon Pokemon
+
+	if err := c.BindJSON(&newPokemon); err != nil {
+		return
+	}
+
+	PokemonStruct = append(PokemonStruct, newPokemon)
+	c.IndentedJSON(http.StatusCreated, newPokemon)
+}
